@@ -9,13 +9,46 @@
   <body>
     <div id="app">
       <h1>{{title}}</h1>
-      <ul>
-        <li v-for="(lang, index) in languages" :key="index">
-          {{index}} - {{lang.name}}
-        </li>
-      </ul>
-    </div>
+      <label for="">Nome</label><br />
+      <input type="text" v-model="nome" />
 
+      <br /><br />
+      <label for="">Telefone</label><br />
+      <input type="text" v-model="telefone" />
+
+      <br /><br />
+      <label for="">Deseja receber nossas novidades?</label><br />
+      <input type="radio" value="sim" v-model="novidades" /> Sim
+      <input type="radio" value="nao" v-model="novidades" /> Não
+
+      <br /><br />
+      <label for="">Interesses</label><br />
+      <input type="checkbox" value="futebol" v-model="interesses" /> Futebol
+      <br />
+      <input type="checkbox" value="formula1" v-model="interesses" /> Formula 1
+      <br />
+      <input type="checkbox" value="corrida" v-model="interesses" /> Corrida
+      <br />
+
+      <br /><br />
+      <label for="">Como nos conheceu?</label><br />
+      <select v-model="conheceu">
+        <option value="">Escolha</option>
+        <option value="Google">Google</option>
+        <option value="TV">TV</option>
+        <option value="Revista">Revista</option>
+      </select>
+      <br /><br />
+
+      <button>ENVIAR</button>
+
+      <hr />
+      Nome: {{nome}} <br />
+      Telefone: {{telefone}} <br />
+      Novidades: {{novidades}} <br />
+      Interesses: {{interesses}} <br />
+      Como nos conheceu? {{conheceu}}<br />
+    </div>
     <script
       type="text/javascript"
       src="https://cdnjs.cloudflare.com/ajax/libs/vue/2.6.1/vue.common.dev.js"
@@ -25,6 +58,11 @@
       var app = new Vue({
         el: '#app',
         data: {
+          nome: '',
+          interesses: [],
+          novidades: '',
+          conheceu: '',
+          telefone: '',
           user: { id: 1, name: 'Jon Snow', profession: 'Ator' },
           title: 'Aula 01 - Vuejs do jeito ninja!',
           languages: [
