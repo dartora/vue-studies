@@ -4,29 +4,26 @@
     <meta charset="UTF-8" />
     <meta http-equiv="X-UA-Compatible" content="IE=edge" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Document</title>
-    <style media="screen">
-      .green {
-        color: green;
-      }
-    </style>
+    <title>Vue do jeito ninja!</title>
+    <link
+      href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.2/dist/css/bootstrap.min.css"
+      rel="stylesheet"
+      integrity="sha384-Zenh87qX5JnK2Jl0vWa8Ck2rdkQ2Bzep5IDxbcnCeuOxjzrPF/et3URy9Bv1WTRi"
+      crossorigin="anonymous"
+    />
   </head>
+
   <body>
     <div id="app">
       <h1>{{title}}</h1>
-      <img v-bind:src="imagem" v-bind:alt="alt" />
-      <p :class="classHtml">
-        Lorem Ipsum is simply dummy text of the printing and typesetting
-        industry. Lorem Ipsum has been the industry's standard dummy text ever
-        since the 1500s, when an unknown printer took a galley of type and
-        scrambled it to make a type specimen book. It has survived not only five
-        centuries, but also the leap into electronic typesetting, remaining
-        essentially unchanged. It was popularised in the 1960s with the release
-        of Letraset sheets containing Lorem Ipsum passages, and more recently
-        with desktop publishing software like Aldus PageMaker including versions
-        of Lorem Ipsum.
-      </p>
+      <button class="btn" :class="btnClassLimpar" :style="btnStyleClean">
+        LIMPAR
+      </button>
+      <button class="btn" :class="btnClassEnviar" :style="btnStyleSend">
+        ENVIAR
+      </button>
     </div>
+
     <script
       type="text/javascript"
       src="https://cdnjs.cloudflare.com/ajax/libs/vue/2.6.1/vue.common.dev.js"
@@ -53,6 +50,13 @@
             'https://s3.amazonaws.com/gofree-public/c26f3652-6b29-474a-8750-68c102ee163d.jpg',
           alt: 'Alternative txt to image',
           classHtml: 'green',
+          btnClassLimpar: 'btn-danger btn-sm',
+          btnClassEnviar: ['btn-primary', { ' btn-lg': true }],
+          btnStyleClean: [
+            { 'font-size': '50px' },
+            { 'text-transform': 'lowercase' },
+          ],
+          btnStyleSend: { 'font-size': '15px' },
         },
       });
     </script>
