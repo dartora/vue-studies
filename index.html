@@ -16,7 +16,6 @@
   <body>
     <div id="app">
       <h1>{{title}}</h1>
-      <span>{{fullName}}</span><br />
     </div>
 
     <script
@@ -27,34 +26,31 @@
     <script>
       var app = new Vue({
         el: '#app',
+        beforeCreate() {
+          console.log('beforeCreate');
+        },
+        created() {
+          console.log('created');
+        },
+        beforeMount() {
+          console.log('beforeMount');
+        },
+        mounted() {
+          console.log('mounted');
+        },
+        beforeUpdate() {
+          console.log('beforeUpdate');
+        },
+        updated() {
+          console.log('updated');
+        },
         data: {
           title: 'Aula 01 - Vuejs do jeito ninja!',
-          firstName: '',
-          lastName: '',
-          // fullName: '',
         },
-        computed: {
-          fullName() {
-            return this.firstName + ' ' + this.lastName;
-          },
-        },
-        watch: {
-          fullName(newValue) {
-            this.updateUser();
-          },
-          // firstName(newValue) {
-          //   this.fullName = newValue + ' ' + this.lastName;
-          // },
-          // lastName(newValue) {
-          //   this.fullName = this.firstName + ' ' + newValue;
-          // },
-        },
+        computed: {},
+        watch: {},
         filters: {},
-        methods: {
-          updateUser() {
-            console.log('Usuário atualizado!');
-          },
-        },
+        methods: {},
       });
     </script>
   </body>
