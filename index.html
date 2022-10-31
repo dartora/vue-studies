@@ -16,20 +16,7 @@
   <body>
     <div id="app">
       <h1>{{title}}</h1>
-      <ul>
-        <li v-for="usuario in usuarios">
-          {{usuario.nome | toUpperCase() | truncate('8')}}
-        </li>
-      </ul>
-
-      <form action="http://google.com">
-        <button class="btn btn-danger" @click.prevent="cancelar()">
-          CANCELAR
-        </button>
-        <button class="btn btn-primary" v-on:click.prevent.stop="enviar()">
-          ENVIAR
-        </button>
-      </form>
+      <span>{{fullName}}</span><br />
     </div>
 
     <script
@@ -42,30 +29,30 @@
         el: '#app',
         data: {
           title: 'Aula 01 - Vuejs do jeito ninja!',
-          usuarios: [
-            { nome: 'Jon Snow' },
-            { nome: 'Tyrion Lannister' },
-            { nome: 'Daenerys Targaryen' },
-          ],
+          firstName: '',
+          lastName: '',
+          // fullName: '',
         },
-        filters: {
-          toUpperCase(value) {
-            return value.toUpperCase();
-          },
-          truncate(str, length) {
-            var output = str;
-            if (output.length > length) {
-              output = str.substring(0, length) + '...';
-            }
-            return output;
+        computed: {
+          fullName() {
+            return this.firstName + ' ' + this.lastName;
           },
         },
+        watch: {
+          fullName(newValue) {
+            this.updateUser();
+          },
+          // firstName(newValue) {
+          //   this.fullName = newValue + ' ' + this.lastName;
+          // },
+          // lastName(newValue) {
+          //   this.fullName = this.firstName + ' ' + newValue;
+          // },
+        },
+        filters: {},
         methods: {
-          enviar() {
-            alert('Enviado!');
-          },
-          cancelar() {
-            alert('Deseja realmente cancelar?');
+          updateUser() {
+            console.log('Usuário atualizado!');
           },
         },
       });
