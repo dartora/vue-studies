@@ -16,12 +16,14 @@
   <body>
     <div id="app">
       <h1>{{title}}</h1>
-      <button class="btn" :class="btnClassLimpar" :style="btnStyleClean">
-        LIMPAR
-      </button>
-      <button class="btn" :class="btnClassEnviar" :style="btnStyleSend">
-        ENVIAR
-      </button>
+      <form action="http://google.com">
+        <button class="btn btn-danger" @click.prevent="cancelar()">
+          CANCELAR
+        </button>
+        <button class="btn btn-primary" v-on:click.prevent.stop="enviar()">
+          ENVIAR
+        </button>
+      </form>
     </div>
 
     <script
@@ -33,30 +35,15 @@
       var app = new Vue({
         el: '#app',
         data: {
-          nome: '',
-          interesses: [],
-          novidades: '',
-          conheceu: '',
-          telefone: '',
-          user: { id: 1, name: 'Jon Snow', profession: 'Ator' },
           title: 'Aula 01 - Vuejs do jeito ninja!',
-          languages: [
-            { name: 'JavaScript' },
-            { name: 'PHP' },
-            { name: 'C#' },
-            { name: 'Java' },
-          ],
-          imagem:
-            'https://s3.amazonaws.com/gofree-public/c26f3652-6b29-474a-8750-68c102ee163d.jpg',
-          alt: 'Alternative txt to image',
-          classHtml: 'green',
-          btnClassLimpar: 'btn-danger btn-sm',
-          btnClassEnviar: ['btn-primary', { ' btn-lg': true }],
-          btnStyleClean: [
-            { 'font-size': '50px' },
-            { 'text-transform': 'lowercase' },
-          ],
-          btnStyleSend: { 'font-size': '15px' },
+        },
+        methods: {
+          enviar() {
+            alert('Enviado!');
+          },
+          cancelar() {
+            alert('Deseja realmente cancelar?');
+          },
         },
       });
     </script>
