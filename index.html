@@ -16,6 +16,12 @@
   <body>
     <div id="app">
       <h1>{{title}}</h1>
+      <ul>
+        <li v-for="usuario in usuarios">
+          {{usuario.nome | toUpperCase() | truncate('8')}}
+        </li>
+      </ul>
+
       <form action="http://google.com">
         <button class="btn btn-danger" @click.prevent="cancelar()">
           CANCELAR
@@ -36,6 +42,23 @@
         el: '#app',
         data: {
           title: 'Aula 01 - Vuejs do jeito ninja!',
+          usuarios: [
+            { nome: 'Jon Snow' },
+            { nome: 'Tyrion Lannister' },
+            { nome: 'Daenerys Targaryen' },
+          ],
+        },
+        filters: {
+          toUpperCase(value) {
+            return value.toUpperCase();
+          },
+          truncate(str, length) {
+            var output = str;
+            if (output.length > length) {
+              output = str.substring(0, length) + '...';
+            }
+            return output;
+          },
         },
         methods: {
           enviar() {
