@@ -5,49 +5,27 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Document</title>
+    <style media="screen">
+      .green {
+        color: green;
+      }
+    </style>
   </head>
   <body>
     <div id="app">
       <h1>{{title}}</h1>
-      <label for="">Nome</label><br />
-      <input type="text" v-model="nome" />
-
-      <br /><br />
-      <label for="">Telefone</label><br />
-      <input type="text" v-model="telefone" />
-
-      <br /><br />
-      <label for="">Deseja receber nossas novidades?</label><br />
-      <input type="radio" value="sim" v-model="novidades" /> Sim
-      <input type="radio" value="nao" v-model="novidades" /> Não
-
-      <br /><br />
-      <label for="">Interesses</label><br />
-      <input type="checkbox" value="futebol" v-model="interesses" /> Futebol
-      <br />
-      <input type="checkbox" value="formula1" v-model="interesses" /> Formula 1
-      <br />
-      <input type="checkbox" value="corrida" v-model="interesses" /> Corrida
-      <br />
-
-      <br /><br />
-      <label for="">Como nos conheceu?</label><br />
-      <select v-model="conheceu">
-        <option value="">Escolha</option>
-        <option value="Google">Google</option>
-        <option value="TV">TV</option>
-        <option value="Revista">Revista</option>
-      </select>
-      <br /><br />
-
-      <button>ENVIAR</button>
-
-      <hr />
-      Nome: {{nome}} <br />
-      Telefone: {{telefone}} <br />
-      Novidades: {{novidades}} <br />
-      Interesses: {{interesses}} <br />
-      Como nos conheceu? {{conheceu}}<br />
+      <img v-bind:src="imagem" v-bind:alt="alt" />
+      <p :class="classHtml">
+        Lorem Ipsum is simply dummy text of the printing and typesetting
+        industry. Lorem Ipsum has been the industry's standard dummy text ever
+        since the 1500s, when an unknown printer took a galley of type and
+        scrambled it to make a type specimen book. It has survived not only five
+        centuries, but also the leap into electronic typesetting, remaining
+        essentially unchanged. It was popularised in the 1960s with the release
+        of Letraset sheets containing Lorem Ipsum passages, and more recently
+        with desktop publishing software like Aldus PageMaker including versions
+        of Lorem Ipsum.
+      </p>
     </div>
     <script
       type="text/javascript"
@@ -71,6 +49,10 @@
             { name: 'C#' },
             { name: 'Java' },
           ],
+          imagem:
+            'https://s3.amazonaws.com/gofree-public/c26f3652-6b29-474a-8750-68c102ee163d.jpg',
+          alt: 'Alternative txt to image',
+          classHtml: 'green',
         },
       });
     </script>
