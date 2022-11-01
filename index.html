@@ -16,34 +16,27 @@
   <body>
     <div id="app">
       <h1>{{title}}</h1>
+      <menu-bar></menu-bar>
+      <menu-bar></menu-bar>
     </div>
 
+    <template id="menu"
+      ><ul>
+        <li>Item 1</li>
+        <li>Item 2</li>
+      </ul></template
+    >
     <script
       type="text/javascript"
       src="https://cdnjs.cloudflare.com/ajax/libs/vue/2.6.1/vue.common.dev.js"
     ></script>
 
     <script>
+      Vue.component('menu-bar', {
+        template: '#menu',
+      });
       var app = new Vue({
         el: '#app',
-        beforeCreate() {
-          console.log('beforeCreate');
-        },
-        created() {
-          console.log('created');
-        },
-        beforeMount() {
-          console.log('beforeMount');
-        },
-        mounted() {
-          console.log('mounted');
-        },
-        beforeUpdate() {
-          console.log('beforeUpdate');
-        },
-        updated() {
-          console.log('updated');
-        },
         data: {
           title: 'Aula 01 - Vuejs do jeito ninja!',
         },
