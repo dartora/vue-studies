@@ -15,23 +15,39 @@
 
   <body>
     <div id="app">
-      <h1>{{title}}</h1>
-      <button @click.stop.prevent="getUsers()" class="btn btn-success">
-        GET USERS
-      </button>
-      <div
-        v-if="response.status !== '' && !loader.users"
-        class="alert alert-danger"
-      >
-        {{response.msg}} <br />{{response.status}}
+      <br /><br /><br />
+      <div class="container">
+        <h1 ref="title">{{title}}</h1>
+
+        <component :is="movie"></component>
+        <!-- <transformers v-if="movie=='transformers'"></transformers> -->
+        <!-- <game-of-thrones v-if="movie=='game-of-thrones'"></game-of-thrones> -->
+        <ul ref="users">
+          <li v-for="(item, index) in users" :key="item.name">
+            {{item.name}}
+            <a @click.stop.prevent="remove(index)" class="btn-close"></a>
+          </li>
+        </ul>
       </div>
-      <div v-if="loader.users" class="">Carregando usuários...</div>
-      <ul>
-        <li v-for="user in users">{{user.name}}</li>
-      </ul>
     </div>
 
-    <template id="card"> </template>
+    <template id="transformers">
+      <div>
+        <h4>Transformers</h4>
+        <ul>
+          <li v-for="item in transformers">{{item.name}}</li>
+        </ul>
+      </div>
+    </template>
+
+    <template id="gameOfThrones">
+      <div>
+        <h4>Game of Thrones</h4>
+        <ul>
+          <li v-for="item in gameOfThrones">{{item.name}}</li>
+        </ul>
+      </div>
+    </template>
 
     <script
       type="text/javascript"
@@ -41,56 +57,53 @@
     <script src="https://unpkg.com/axios/dist/axios.min.js"></script>
 
     <script>
-      Vue.component('card', {
-        template: '#card',
+      Vue.component('transformers', {
+        template: '#transformers',
+        data() {
+          return {
+            transformers: [
+              { name: 'Optmus Prime' },
+              { name: 'Bumble Bee' },
+              { name: 'Megatron' },
+            ],
+          };
+        },
         methods: {},
       });
-
+      Vue.component('game-of-thrones', {
+        template: '#gameOfThrones',
+        data() {
+          return {
+            gameOfThrones: [
+              { name: 'Jon Snow' },
+              { name: 'Daenerys Targaryen' },
+              { name: 'Tyron' },
+            ],
+          };
+        },
+        methods: {},
+      });
       // var eventBus = new Vue();
       // Vue.prototype.$eventHub = new Vue();
-      var mixin = {
-        methods: {
-          getUsers() {
-            this.loader.users = true;
-            var url = 'http://jsonplaceholder.typicode.com/users';
-            var vm = this;
-            axios
-              .get(url)
-              .then(
-                // se usar arrow function n necessita dar esse bind(line56) no this
-                function (response) {
-                  console.log(response);
-                  vm.users = response.data;
-                },
-                (error) => {
-                  this.response.status = `statusText:  "${error.statusText}"`;
-                  console.log(error);
-                }
-              )
-              .finally(() => {
-                this.loader.users = false;
-              });
-          },
-        },
-      };
+
       var app = new Vue({
         el: '#app',
-        mixins: [mixin],
+        mounted() {
+          console.log(this.$refs);
+        },
         data: {
           title: 'Vuejs do jeito ninja!',
-          users: [],
-          loader: {
-            users: false,
-          },
-          response: {
-            msg: 'Erro ao conectar!',
-            status: '',
-          },
+          users: [{ name: 'Emma' }, { name: 'Sophia' }, { name: 'Isabella' }],
+          movie: '',
         },
         computed: {},
         watch: {},
         filters: {},
-        methods: {},
+        methods: {
+          remove(index) {
+            this.users.splice(index, 1);
+          },
+        },
       });
     </script>
   </body>
