@@ -15,131 +15,72 @@
 
   <body>
     <div id="app">
-      <navbar></navbar>
-      <menu-bar
-        :items="[{label: 'A empresa'},{label:'Produtos'},{label:'Serviços'}]"
-      >
-      </menu-bar>
+      <br /><br /><br /><br />
+      <div class="container">
+        <input-form></input-form>
+        <br />
+        <my-list></my-list>
+      </div>
     </div>
 
-    <template id="menu">
-      <div>
-        <ul class="navbar-nav me-auto">
-          <li v-for="(item, index) in items" class="nav-item">
-            <a
-              @click.stop.prevent="emitClick(index)"
-              class="nav-link"
-              aria-current="page"
-              href="#"
-            >
-              {{item.label}}
-            </a>
-          </li>
-        </ul>
+    <template id="form">
+      <div class="card">
+        <div class="card-block">
+          <div class="form-group">
+            <label for="">Título</label>
+            <input v-model="title" type="text" class="form-control" />
+          </div>
+          <button @click.stop.prevent="submit()" class="btn btn-primary">
+            ENVIAR
+          </button>
+        </div>
       </div>
     </template>
 
-    <template id="navbar">
-      <nav class="navbar navbar-expand-lg bg-light">
-        <div class="container-fluid">
-          <a class="navbar-brand" href="#">Navbar</a>
-          <button
-            class="navbar-toggler"
-            type="button"
-            data-bs-toggle="collapse"
-            data-bs-target="#navbarSupportedContent"
-            aria-controls="navbarSupportedContent"
-            aria-expanded="false"
-            aria-label="Toggle navigation"
-          >
-            <span class="navbar-toggler-icon"></span>
-          </button>
-          <div class="collapse navbar-collapse" id="navbarSupportedContent">
-            <menu-bar :items="topNav" @emit-click="getLink"></menu-bar>
-            <ul class="navbar-nav me-auto mb-2 mb-lg-0">
-              <li class="nav-item">
-                <a class="nav-link active" aria-current="page" href="#">Home</a>
-              </li>
-              <li class="nav-item">
-                <a class="nav-link" href="#">Link</a>
-              </li>
-              <li class="nav-item dropdown">
-                <a
-                  class="nav-link dropdown-toggle"
-                  href="#"
-                  role="button"
-                  data-bs-toggle="dropdown"
-                  aria-expanded="false"
-                >
-                  Dropdown
-                </a>
-                <ul class="dropdown-menu">
-                  <li><a class="dropdown-item" href="#">Action</a></li>
-                  <li><a class="dropdown-item" href="#">Another action</a></li>
-                  <li><hr class="dropdown-divider" /></li>
-                  <li>
-                    <a class="dropdown-item" href="#">Something else here</a>
-                  </li>
-                </ul>
-              </li>
-              <li class="nav-item">
-                <a class="nav-link disabled">Disabled</a>
-              </li>
-            </ul>
-            <form class="d-flex" role="search">
-              <input
-                class="form-control me-2"
-                type="search"
-                placeholder="Search"
-                aria-label="Search"
-              />
-              <button class="btn btn-outline-success" type="submit">
-                Search
-              </button>
-            </form>
-          </div>
-        </div>
-      </nav>
+    <template id="list">
+      <ul class="list-group">
+        <li v-for="item in list" class="list-group-item">{{item.title}}</li>
+      </ul>
     </template>
+
     <script
       type="text/javascript"
       src="https://cdnjs.cloudflare.com/ajax/libs/vue/2.6.1/vue.common.dev.js"
     ></script>
 
     <script>
-      Vue.component('menu-bar', {
-        template: '#menu',
-        props: {
-          items: {
-            type: Array,
-            required: true,
-          },
-        },
-        methods: {
-          emitClick(index) {
-            console.log('emit-click', index);
-            this.$emit('emit-click', index);
-          },
-        },
-      });
-      Vue.component('navbar', {
-        template: '#navbar',
+      Vue.component('input-form', {
+        template: '#form',
         data() {
           return {
-            topNav: [
-              { label: 'Home' },
-              { label: 'Link' },
-              { label: 'Disabled' },
-            ],
+            title: '',
           };
         },
         methods: {
-          getLink(index) {
-            console.log(this.topNav[index]);
-            alert(this.topNav[index].label);
+          submit() {
+            this.$eventHub.$emit('submit', this.title);
           },
         },
       });
+      Vue.component('my-list', {
+        template: '#list',
+        created() {
+          var vm = this;
+          this.$eventHub.$on('submit', function (title) {
+            console.log('title', title);
+            if (title) {
+              vm.list.push({ title: title });
+            }
+          });
+        },
+        data() {
+          return {
+            list: [{ title: 'Ir a feira' }],
+          };
+        },
+      });
+      // var eventBus = new Vue();
+      Vue.prototype.$eventHub = new Vue();
       var app = new Vue({
         el: '#app',
         data: {
