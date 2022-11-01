@@ -37,7 +37,8 @@
       type="text/javascript"
       src="https://cdnjs.cloudflare.com/ajax/libs/vue/2.6.1/vue.common.dev.js"
     ></script>
-    <script src="https://cdn.jsdelivr.net/npm/vue-resource@1.5.3"></script>
+
+    <script src="https://unpkg.com/axios/dist/axios.min.js"></script>
 
     <script>
       Vue.component('card', {
@@ -52,11 +53,14 @@
           getUsers() {
             this.loader.users = true;
             var url = 'http://jsonplaceholder.typicode.com/users';
-            this.$http
+            var vm = this;
+            axios
               .get(url)
               .then(
-                (response) => {
-                  this.users = response.body;
+                // se usar arrow function n necessita dar esse bind(line56) no this
+                function (response) {
+                  console.log(response);
+                  vm.users = response.data;
                 },
                 (error) => {
                   this.response.status = `statusText:  "${error.statusText}"`;
