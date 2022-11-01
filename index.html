@@ -19,6 +19,16 @@
       <button @click.stop.prevent="getUsers()" class="btn btn-success">
         GET USERS
       </button>
+      <div
+        v-if="response.status !== '' && !loader.users"
+        class="alert alert-danger"
+      >
+        {{response.msg}} <br />{{response.status}}
+      </div>
+      <div v-if="loader.users" class="">Carregando usuários...</div>
+      <ul>
+        <li v-for="user in users">{{user.name}}</li>
+      </ul>
     </div>
 
     <template id="card"> </template>
@@ -27,6 +37,7 @@
       type="text/javascript"
       src="https://cdnjs.cloudflare.com/ajax/libs/vue/2.6.1/vue.common.dev.js"
     ></script>
+    <script src="https://cdn.jsdelivr.net/npm/vue-resource@1.5.3"></script>
 
     <script>
       Vue.component('card', {
@@ -37,12 +48,24 @@
       // var eventBus = new Vue();
       // Vue.prototype.$eventHub = new Vue();
       var mixin = {
-        created() {
-          console.log('hello vue from mixin');
-        },
         methods: {
           getUsers() {
-            console.log('get users');
+            this.loader.users = true;
+            var url = 'http://jsonplaceholder.typicode.com/users';
+            this.$http
+              .get(url)
+              .then(
+                (response) => {
+                  this.users = response.body;
+                },
+                (error) => {
+                  this.response.status = `statusText:  "${error.statusText}"`;
+                  console.log(error);
+                }
+              )
+              .finally(() => {
+                this.loader.users = false;
+              });
           },
         },
       };
@@ -51,6 +74,14 @@
         mixins: [mixin],
         data: {
           title: 'Vuejs do jeito ninja!',
+          users: [],
+          loader: {
+            users: false,
+          },
+          response: {
+            msg: 'Erro ao conectar!',
+            status: '',
+          },
         },
         computed: {},
         watch: {},
