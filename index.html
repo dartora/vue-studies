@@ -17,22 +17,55 @@
     <div id="app">
       <br /><br /><br /><br />
       <div class="container">
-        <input-form></input-form>
-        <br />
-        <my-list></my-list>
+        <card>
+          <div slot="title">Vue.js do jeito ninjaa</div>
+          <h4 slot="cardTitle" class="card-title">Card title</h4>
+          <template slot="text">
+            <p class="card-text">
+              Some quick example text to build on the card title and make up the
+              bulk of the card's content.
+            </p>
+            <p class="card-text">
+              Some quick example text to build on the card title and make up the
+              bulk of the card's content.
+            </p>
+          </template>
+          <a slot="action" href="#" class="btn btn-primary">Go somewhere</a>
+        </card>
+
+        <br /><br />
+
+        <card>
+          <div slot="title">2 Vue.js do jeito ninjaa</div>
+          <h4 slot="cardTitle" class="card-title">2 Card title</h4>
+          <template slot="text">
+            <p class="card-text">
+              Some another example text to build on the card title and make up
+              the bulk of the card's content.
+            </p>
+            <p class="card-text">
+              Some another example text to build on the card title and make up
+              the bulk of the card's content.
+            </p>
+          </template>
+          <a slot="action" href="#" class="btn btn-primary">Go somewhere</a>
+        </card>
       </div>
     </div>
 
-    <template id="form">
+    <template id="card">
       <div class="card">
+        <img
+          class="card-img-top"
+          src="https://via.placeholder.com/350x150"
+          class=""
+        />
         <div class="card-block">
-          <div class="form-group">
-            <label for="">Título</label>
-            <input v-model="title" type="text" class="form-control" />
-          </div>
-          <button @click.stop.prevent="submit()" class="btn btn-primary">
-            ENVIAR
-          </button>
+          <slot></slot>
+          <slot name="title"></slot>
+          <slot name="cardTitle"></slot>
+          <slot name="text"></slot>
+          <slot name="action"></slot>
         </div>
       </div>
     </template>
@@ -49,38 +82,13 @@
     ></script>
 
     <script>
-      Vue.component('input-form', {
-        template: '#form',
-        data() {
-          return {
-            title: '',
-          };
-        },
-        methods: {
-          submit() {
-            this.$eventHub.$emit('submit', this.title);
-          },
-        },
+      Vue.component('card', {
+        template: '#card',
+        methods: {},
       });
-      Vue.component('my-list', {
-        template: '#list',
-        created() {
-          var vm = this;
-          this.$eventHub.$on('submit', function (title) {
-            console.log('title', title);
-            if (title) {
-              vm.list.push({ title: title });
-            }
-          });
-        },
-        data() {
-          return {
-            list: [{ title: 'Ir a feira' }],
-          };
-        },
-      });
+
       // var eventBus = new Vue();
-      Vue.prototype.$eventHub = new Vue();
+      // Vue.prototype.$eventHub = new Vue();
       var app = new Vue({
         el: '#app',
         data: {
