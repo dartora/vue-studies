@@ -16,18 +16,27 @@
   <body>
     <div id="app">
       <navbar></navbar>
-      <menu-bar></menu-bar>
+      <menu-bar
+        :items="[{label: 'A empresa'},{label:'Produtos'},{label:'Serviços'}]"
+      >
+      </menu-bar>
     </div>
 
     <template id="menu">
-      <ul class="navbar-nav me-auto">
-        <li class="nav-item">
-          <a class="nav-link" aria-current="page" href="#">Item 1</a>
-        </li>
-        <li class="nav-item">
-          <a class="nav-link" aria-current="page" href="#">Item 2</a>
-        </li>
-      </ul>
+      <div>
+        <ul class="navbar-nav me-auto">
+          <li v-for="(item, index) in items" class="nav-item">
+            <a
+              @click.stop.prevent="emitClick(index)"
+              class="nav-link"
+              aria-current="page"
+              href="#"
+            >
+              {{item.label}}
+            </a>
+          </li>
+        </ul>
+      </div>
     </template>
 
     <template id="navbar">
@@ -46,7 +55,7 @@
             <span class="navbar-toggler-icon"></span>
           </button>
           <div class="collapse navbar-collapse" id="navbarSupportedContent">
-            <menu-bar></menu-bar>
+            <menu-bar :items="topNav" @emit-click="getLink"></menu-bar>
             <ul class="navbar-nav me-auto mb-2 mb-lg-0">
               <li class="nav-item">
                 <a class="nav-link active" aria-current="page" href="#">Home</a>
@@ -100,9 +109,36 @@
     <script>
       Vue.component('menu-bar', {
         template: '#menu',
+        props: {
+          items: {
+            type: Array,
+            required: true,
+          },
+        },
+        methods: {
+          emitClick(index) {
+            console.log('emit-click', index);
+            this.$emit('emit-click', index);
+          },
+        },
       });
       Vue.component('navbar', {
         template: '#navbar',
+        data() {
+          return {
+            topNav: [
+              { label: 'Home' },
+              { label: 'Link' },
+              { label: 'Disabled' },
+            ],
+          };
+        },
+        methods: {
+          getLink(index) {
+            console.log(this.topNav[index]);
+            alert(this.topNav[index].label);
+          },
+        },
       });
       var app = new Vue({
         el: '#app',
