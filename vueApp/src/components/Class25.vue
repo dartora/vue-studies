@@ -1,10 +1,4 @@
 <template>
-  <div>
-    <h4>Transformers Content</h4>
-    {{ $route.params.name }}
-  </div>
-</template>
-<!-- <template>
   <v-container class="grey lighten-5">
     <v-row no-gutters>
       <v-col v-for="n in 3" :key="n" cols="12" sm="4">
@@ -14,14 +8,21 @@
       </v-col>
     </v-row>
   </v-container>
-</template> -->
+</template>
 
 <script>
+// import Transformers from "./Transformers";
+// import GameOfThrones from "./GameOfThrones";
+
 export default {
-  name: "TransformersContent",
+  name: "Class25",
+  components: {
+    // "transformers-component": Transformers,
+    // "got-component": GameOfThrones
+  },
   data() {
     return {
-      transformersContent: [{ name: "" }, { name: "" }, { name: "" }]
+      msg: "Welcome to Your Vue.js App - Class 25"
     };
   }
 };

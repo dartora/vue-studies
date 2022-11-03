@@ -3,6 +3,7 @@ import Router from "vue-router";
 import HelloWorld from "@/components/HelloWorld";
 import Class24 from "@/components/Class24";
 import TransformersContent from "@/components/TransformersContent";
+import Class25 from "@/components/Class25";
 
 Vue.use(Router);
 
@@ -25,6 +26,11 @@ export default new Router({
           component: TransformersContent
         }
       ]
+    },
+    {
+      path: "/class25",
+      name: "class25",
+      component: Class25
     }
   ]
 });

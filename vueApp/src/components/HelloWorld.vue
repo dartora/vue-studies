@@ -60,6 +60,11 @@
           Class 24
         </a>
       </li>
+      <li>
+        <a href="/class25" target="">
+          Class 25
+        </a>
+      </li>
     </ul>
   </div>
 </template>

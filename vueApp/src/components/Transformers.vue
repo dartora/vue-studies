@@ -4,7 +4,7 @@
       <div class="col">
         <h3>Transformers</h3>
         <ul>
-          <li v-for="item in transformers">
+          <li v-for="item in transformers" :key="item.slug">
             <router-link
               :to="{
                 name: 'transformersContent',

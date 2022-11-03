@@ -10,6 +10,11 @@
 <script>
 export default {
   name: 'App',
+  created() {
+    console.log(this.$router);
+    console.log(this.$route);
+    this.$router.push({ name: 'transformersContent', params: { name: 'megatron' } });
+  },
 };
 </script>
 
