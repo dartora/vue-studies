@@ -1,7 +1,8 @@
 import Vue from "vue";
 import Router from "vue-router";
 import HelloWorld from "@/components/HelloWorld";
-import class24 from "@/components/class24";
+import Class24 from "@/components/Class24";
+import TransformersContent from "@/components/TransformersContent";
 
 Vue.use(Router);
 
@@ -16,7 +17,14 @@ export default new Router({
     {
       path: "/class24",
       name: "class24",
-      component: class24
+      component: Class24,
+      children: [
+        {
+          path: ":name",
+          name: "transformersContent",
+          component: TransformersContent
+        }
+      ]
     }
   ]
 });
