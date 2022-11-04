@@ -1,0 +1,11 @@
+{
+  "name": "ninja",
+  "version": "1.0.0",
+  "main": "index.js",
+  "repository": "git@github.com:dartora/vue-studies.git",
+  "author": "Rodolfo <rodolfo.dartora@jeaholding.com.br>",
+  "license": "MIT",
+  "dependencies": {
+    "vue": "2.6.1"
+  }
+}

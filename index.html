@@ -19,27 +19,27 @@
       <br /><br /><br />
       <div class="container">
         <h1 ref="title">{{title}}</h1>
+        <router-link :to="{name: 'transformers'}" custom v-slot="{navigate}">
+          <span @click="navigate" @keypress.enter="navigate" role="link">
+            Transformers
+          </span>
+        </router-link>
 
-        <select v-model="movie">
-          <option value="">Select</option>
-          <option value="transformers">Transformers</option>
-          <option value="game-of-thrones">Game of Thrones</option>
-        </select>
+        <br />
+        <router-link :to="{name: 'gameOfThrones'}" custom v-slot="{navigate}">
+          <span @click="navigate" @keypress.enter="navigate" role="link">
+            Game Of Thrones
+          </span>
+        </router-link>
 
-        <!-- <transformers v-if="movie=='transformers'"></transformers> -->
-        <!-- <game-of-thrones v-if="movie=='game-of-thrones'"></game-of-thrones> -->
-        <ul ref="users">
-          <li v-for="(item, index) in users" :key="item.name">
-            {{item.name}}
-            <a @click.stop.prevent="remove(index)" class="btn-close"></a>
-          </li>
-        </ul>
-
-        <!-- <component :is="movie"></component> -->
-
-        <transition name="fade">
-          <component :is="movie"></component>
-        </transition>
+        <br />
+        <!-- <router-link :to="{name: aula23}" custom v-slot="{navigate}">
+          <span @click="navigate" @keypress.enter="navigate" role="link">
+            Aula 23
+          </span>
+        </router-link> -->
+        <!-- <router-link to="/game-of-thrones">Game Of Thrones</router-link> -->
+        <router-view></router-view>
       </div>
     </div>
 
@@ -67,9 +67,10 @@
     ></script>
 
     <script src="https://unpkg.com/axios/dist/axios.min.js"></script>
+    <script src="https://unpkg.com/vue-router@3"></script>
 
     <script>
-      Vue.component('transformers', {
+      var Transformers = Vue.component('transformers', {
         template: '#transformers',
         data() {
           return {
@@ -82,7 +83,7 @@
         },
         methods: {},
       });
-      Vue.component('game-of-thrones', {
+      var GameOfThrones = Vue.component('game-of-thrones', {
         template: '#gameOfThrones',
         data() {
           return {
@@ -98,23 +99,32 @@
       // var eventBus = new Vue();
       // Vue.prototype.$eventHub = new Vue();
 
+      var router = new VueRouter({
+        mode: 'history',
+        routes: [
+          {
+            path: '/transformers',
+            name: 'transformers',
+            component: Transformers,
+          },
+          {
+            path: '/game-of-thrones',
+            name: 'gameOfThrones',
+            component: GameOfThrones,
+          },
+          // {
+          //   path: '/class23',
+          //   name: 'class23',
+          //   component: class23,
+          // },
+        ],
+      });
+
       var app = new Vue({
         el: '#app',
-        mounted() {
-          console.log(this.$refs);
-        },
+        router,
         data: {
           title: 'Vuejs do jeito ninja!',
-          users: [{ name: 'Emma' }, { name: 'Sophia' }, { name: 'Isabella' }],
-          movie: '',
-        },
-        computed: {},
-        watch: {},
-        filters: {},
-        methods: {
-          remove(index) {
-            this.users.splice(index, 1);
-          },
         },
       });
     </script>

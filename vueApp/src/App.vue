@@ -3,18 +3,14 @@
     <img src="./assets/logo.png" />
     <router-view />
     <br/><br/><br/><br/></br/>
-    <a href="./">Voltar</a>
+    <a href="/">Voltar</a>
   </div>
 </template>
 
 <script>
 export default {
   name: 'App',
-  created() {
-    console.log(this.$router);
-    console.log(this.$route);
-    this.$router.push({ name: 'transformersContent', params: { name: 'megatron' } });
-  },
+  created() { },
 };
 </script>
 
