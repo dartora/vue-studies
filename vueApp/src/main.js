@@ -5,7 +5,7 @@ import App from "./App";
 import router from "./router";
 // import Vuetify from "vuetify/lib"; // import "bootstrap";
 import Vuetify from "vuetify";
-// import "bootstrap/dist/css/bootstrap.min.css";
+import "bootstrap/dist/css/bootstrap.css";
 
 Vue.config.productionTip = false;
 

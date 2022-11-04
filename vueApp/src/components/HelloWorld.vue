@@ -1,5 +1,7 @@
 <template>
   <div class="hello">
+    <img src="../assets/logo.png" />
+
     <h1>{{ msg }}</h1>
     <h2>Essential Links</h2>
     <ul>
@@ -78,6 +80,11 @@
       <li>
         <a href="/class28" target="">
           Class 28
+        </a>
+      </li>
+      <li>
+        <a href="/class30" target="">
+          Class 30
         </a>
       </li>
     </ul>

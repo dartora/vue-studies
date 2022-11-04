@@ -6,7 +6,7 @@ import TransformersContent from "@/components/TransformersContent";
 import Class25 from "@/components/Class25";
 import Class26 from "@/components/Class26";
 import Class27 from "@/components/Class27";
-import Class28 from "@/components/Class28";
+import Class30 from "@/components/Class30";
 import Error404 from "@/components/Error404";
 
 Vue.use(Router);
@@ -71,9 +71,9 @@ export default new Router({
       // ]
     },
     {
-      path: "/class28",
-      name: "class28",
-      component: Class28
+      path: "/class30",
+      name: "class30",
+      component: Class30
     }
   ]
 });

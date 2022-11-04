@@ -1,6 +1,5 @@
 <template>
   <div id="app">
-    <img src="./assets/logo.png" />
     <router-view />
     <br/><br/><br/><br/></br/>
     <a href="/">Voltar</a>
@@ -23,6 +22,4 @@ export default {
   color: #2c3e50;
   margin-top: 60px;
 }
-
-
 </style>
