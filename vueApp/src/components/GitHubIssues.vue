@@ -77,6 +77,7 @@
             >
               {{ issue.number }}
             </router-link>
+             <img  v-if="issue.is_loading" src="/static/loading.svg" alt="" />
           </td>
 
           <td>{{ issue.title }}</td>
@@ -159,6 +160,8 @@ export default {
           });
       }
     },
+
+    
     getLocalData() {
       const localData = JSON.parse(localStorage.getItem("gitHubIssues"));
       if (localData && localData.username && localData.repository) {
