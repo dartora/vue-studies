@@ -40,7 +40,6 @@ export default new Router({
       path: "/class25",
       name: "class25",
       component: Class25,
-
       children: [
         {
           path: "/class25/arrow",
@@ -62,13 +61,14 @@ export default new Router({
       path: "/class27",
       name: "class27",
       component: Class27,
-      children: [
-        {
-          path: ":name",
-          name: "transformersContent",
-          component: TransformersContent
-        }
-      ]
+      props: { sidebar: "light" }
+      // children: [
+      //   {
+      //     path: ":name",
+      //     name: "transformersContent",
+      //     component: TransformersContent
+      //   }
+      // ]
     },
     {
       path: "/class28",
