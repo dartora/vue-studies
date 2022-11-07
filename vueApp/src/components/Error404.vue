@@ -15,7 +15,7 @@ export default {
   name: "Error404",
   data() {
     return {
-      msg: "Página não encontrar!"
+      msg: "Página não encontrada!"
     };
   }
 };
