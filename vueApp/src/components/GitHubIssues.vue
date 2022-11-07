@@ -48,7 +48,15 @@
     <hr />
     <br />
 
-    <table class="table table-sm table-bordered">
+    <template v-if="selectedIssue.id">
+      <h2>{{ selectedIssue.title }}</h2>
+      <div>{{ selectedIssue.body }}</div>
+      <a @click.prevent.stop="clearIssue()" class="btn btn-primary" href=""
+        >Voltar</a
+      >
+    </template>
+
+    <table v-if="!selectedIssue.id" class="table table-sm table-bordered">
       <thead>
         <tr>
           <th width="100">Número</th>
@@ -57,31 +65,34 @@
       </thead>
 
       <tbody>
-        <tr v-if="loader.getIssues">
+        <tr v-if="loader.getIssues || loader.getIssue">
           <td class="text-center" colspan="2">
             <img src="/static/loading.svg" alt="" />
           </td>
         </tr>
+        <template v-if="!loader.getIssue">
+          <tr v-if="showIssues" v-for="issue in issues" :key="issue.number">
+            <td>
+              <router-link
+                :to="{
+                  name: 'GitHubIssue',
+                  params: {
+                    name: username,
+                    repo: repository,
+                    issue: issue.number
+                  }
+                }"
+              >
+                <a @click.prevent.stop="getIssue(issue)">
+                  {{ issue.number }}
+                </a>
+              </router-link>
+              <img v-if="issue.is_loading" src="/static/loading.svg" alt="" />
+            </td>
 
-        <tr v-if="showIssues" v-for="issue in issues" :key="issue.number">
-          <td>
-            <router-link
-              :to="{
-                name: 'GitHubIssue',
-                params: {
-                  name: username,
-                  repo: repository,
-                  issue: issue.number
-                }
-              }"
-            >
-              {{ issue.number }}
-            </router-link>
-             <img  v-if="issue.is_loading" src="/static/loading.svg" alt="" />
-          </td>
-
-          <td>{{ issue.title }}</td>
-        </tr>
+            <td>{{ issue.title }}</td>
+          </tr>
+        </template>
 
         <tr v-if="noIssues">
           <td class="text-center" colspan="2">Nenhuma issue encontrada!</td>
@@ -104,12 +115,14 @@ export default {
       username: "",
       repository: "",
       issues: [],
+      selectedIssue: {},
       response: {
         status: "",
         message: ""
       },
       loader: {
-        getIssues: false
+        getIssues: false,
+        getIssue: false
       }
     };
   },
@@ -160,8 +173,26 @@ export default {
           });
       }
     },
+    getIssue(issue) {
+      if (this.username && this.repository) {
+        // this.loader.getIssue = true;
+        this.$set(issue, "is_loading", true);
+        const url = `https://api.github.com/repos/${this.username}/${this.repository}/issues/${issue.number}`;
+        axios
+          .get(url)
+          .then(response => {
+            this.selectedIssue = response.data;
+          })
+          .finally(() => {
+            this.$set(issue, "is_loading", false);
+          });
+      }
+    },
 
-    
+    clearIssue() {
+      this.selectedIssue = {};
+    },
+
     getLocalData() {
       const localData = JSON.parse(localStorage.getItem("gitHubIssues"));
       if (localData && localData.username && localData.repository) {
