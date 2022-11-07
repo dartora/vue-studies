@@ -47,16 +47,16 @@
     <br />
     <hr />
     <br />
-
+    <!--
     <template v-if="selectedIssue.id">
       <h2>{{ selectedIssue.title }}</h2>
       <div>{{ selectedIssue.body }}</div>
       <a @click.prevent.stop="clearIssue()" class="btn btn-primary" href=""
         >Voltar</a
       >
-    </template>
+    </template> -->
 
-    <table v-if="!selectedIssue.id" class="table table-sm table-bordered">
+    <table class="table table-sm table-bordered">
       <thead>
         <tr>
           <th width="100">Número</th>
@@ -65,34 +65,35 @@
       </thead>
 
       <tbody>
-        <tr v-if="loader.getIssues || loader.getIssue">
+        <tr v-if="loader.getIssues">
           <td class="text-center" colspan="2">
             <img src="/static/loading.svg" alt="" />
           </td>
         </tr>
-        <template v-if="!loader.getIssue">
-          <tr v-if="showIssues" v-for="issue in issues" :key="issue.number">
-            <td>
-              <router-link
-                :to="{
-                  name: 'GitHubIssue',
-                  params: {
-                    name: username,
-                    repo: repository,
-                    issue: issue.number
-                  }
-                }"
-              >
-                <a @click.prevent.stop="getIssue(issue)">
+        <!-- <template v-if="!loader.getIssue"> -->
+        <tr v-if="showIssues" v-for="issue in issues" :key="issue.number">
+          <td>
+            <router-link
+              :to="{
+                name: 'GitHubIssue',
+                params: {
+                  name: username,
+                  repo: repository,
+                  issue: issue.number
+                }
+              }"
+            >
+              {{ issue.number }}
+              <!-- <a @click.prevent.stop="getIssue(issue)">
                   {{ issue.number }}
-                </a>
-              </router-link>
-              <img v-if="issue.is_loading" src="/static/loading.svg" alt="" />
-            </td>
+                </a> -->
+            </router-link>
+            <!-- <img v-if="issue.is_loading" src="/static/loading.svg" alt="" /> -->
+          </td>
 
-            <td>{{ issue.title }}</td>
-          </tr>
-        </template>
+          <td>{{ issue.title }}</td>
+        </tr>
+        <!-- </template> -->
 
         <tr v-if="noIssues">
           <td class="text-center" colspan="2">Nenhuma issue encontrada!</td>
@@ -187,10 +188,6 @@ export default {
             this.$set(issue, "is_loading", false);
           });
       }
-    },
-
-    clearIssue() {
-      this.selectedIssue = {};
     },
 
     getLocalData() {

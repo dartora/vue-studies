@@ -8,6 +8,7 @@ import Class26 from "@/components/Class26";
 import Class27 from "@/components/Class27";
 import Class30 from "@/components/Class30";
 import Error404 from "@/components/Error404";
+import GitHubIssue from "@/components/GitHubIssue";
 
 Vue.use(Router);
 
@@ -74,6 +75,11 @@ export default new Router({
       path: "/class30",
       name: "class30",
       component: Class30
+    },
+    {
+      path: "/:name/:repo/:issue",
+      name: "GitHubIssue",
+      component: GitHubIssue
     }
   ]
 });
